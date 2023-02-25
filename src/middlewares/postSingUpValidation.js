@@ -16,8 +16,8 @@ export async function postSingUpValidation(req, res, next) {
         if (!emailFormat.test(email)) return res.sendStatus(422);
 
         const userExist = await db.query('SELECT * FROM users WHERE email = $1;', [email]);
-        console.log(userExist)
-        if (userExist.rowCount === 0) return res.sendStatus(409);
+        console.log('teste', userExist)
+        if (userExist.rowCount !== 0) return res.sendStatus(409);
 
         next(); 
         
