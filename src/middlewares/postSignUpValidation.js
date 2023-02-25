@@ -1,6 +1,6 @@
 import { db } from "../database/db.js";
 
-export async function postSingUpValidation(req, res, next) {
+export async function postSignUpValidation(req, res, next) {
     const { name, email, password, confirmPassword } = req.body; 
 
     try {
