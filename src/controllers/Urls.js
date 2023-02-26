@@ -19,3 +19,17 @@ export async function postUrlsShorten(req, res) {
         return res.status(500).send(error);
     }
 }
+export async function getUrlById(req, res) {
+    const { id } = req.params;
+
+    try {
+
+        const url = await db.query('SELECT * FROM urls WHERE id = $1;', [id]);
+
+        return res.status(200).send(url.rows[0]);
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
