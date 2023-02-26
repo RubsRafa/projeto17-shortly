@@ -17,7 +17,8 @@ export async function deleteUrlValidation(req, res, next) {
 
         const urlFromUser = await db.query('SELECT * FROM "usersUrls" WHERE id_url = $1;', [id]);
         if (!urlFromUser.rows[0]) return res.sendStatus(404);
-        if (!urlFromUser.rows[0].id_user !== idUser) return res.sendStatus(401);
+    
+        if (urlFromUser.rows[0].id_user !== idUser) return res.sendStatus(401);
 
         next(); 
         

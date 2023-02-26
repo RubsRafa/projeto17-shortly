@@ -55,7 +55,9 @@ export async function deleteUrl(req, res) {
     const { id } = req.params;
 
     try {
+        console.log('passou aqui')
 
+        await db.query('DELETE FROM "usersUrls" WHERE id_url = $1;', [id])
         await db.query('DELETE FROM urls WHERE id = $1;', [id]);
         return res.sendStatus(204);
         
