@@ -66,7 +66,7 @@ export async function getUsersMe(req, res) {
 export async function getRanking(req, res) {
     try {
 
-        const ranking = await db.query('SELECT users.id, users.name, count(urls.id_user) AS "linksCount", sum(urls."visitCount") AS "visitCount" FROM users JOIN urls ON urls.id_user = users.id GROUP BY users.id ORDER BY "visitCount" asc limit 10;');
+        const ranking = await db.query('SELECT users.id, users.name, count(urls.id_user) AS "linksCount", sum(urls."visitCount") AS "visitCount" FROM users JOIN urls ON urls.id_user = users.id GROUP BY users.id ORDER BY "visitCount" desc limit 10;');
 
         return res.send(ranking.rows);
         
