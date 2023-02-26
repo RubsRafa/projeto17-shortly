@@ -38,3 +38,28 @@ export async function postSignIn(req, res) {
         return res.status(500).send(error);
     }
 }
+export async function getUsersMe(req, res) {
+    const { id } = res.locals; 
+
+    try {
+        console.log('chegou aqui')
+
+        // const user = await db.query('SELECT * FROM users WHERE id = $1;', [id_user]);
+        const usersUrls = await db.query('SELECT id, "shortUrl", url, "visitCount" FROM urls WHERE id_user = $1;', [id]);
+
+        const visits = await db.query('SELECT SUM("visitCount") FROM urls WHERE id_user = $1;', [id])
+
+        const userinfo = await db.query('SELECT id, name FROM users WHERE id = $1;', [id])
+    
+        const myUrls = { ...userinfo.rows[0], 
+            visitCount: Number(visits.rows[0].sum),
+            shortenedUrls: usersUrls.rows
+        }
+
+        return res.send(myUrls)
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error); 
+    }
+}

@@ -3,17 +3,15 @@ import { nanoid } from "nanoid";
 
 export async function postUrlsShorten(req, res) {
     const { url } = req.body;
-    const id_user = res.locals.id_user;
+    const { id_user } = res.locals; 
 
     try {
 
         const shortUrl = nanoid();
 
-        await db.query('INSERT INTO urls (url, "shortUrl") VALUES ($1, $2);', [url, shortUrl]);
+        await db.query('INSERT INTO urls (url, "shortUrl", id_user) VALUES ($1, $2, $3);', [url, shortUrl, id_user]);
 
         const urlShorten = await db.query('SELECT * FROM urls WHERE url = $1;', [url]);
-
-        await db.query('INSERT INTO "usersUrls" (id_user, id_url) VALUES ($1, $2);', [id_user, urlShorten.rows[0].id]);
 
         return res.status(201).send({ id: urlShorten.rows[0].id, shortUrl: urlShorten.rows[0].shortUrl })
         
@@ -55,9 +53,7 @@ export async function deleteUrl(req, res) {
     const { id } = req.params;
 
     try {
-        console.log('passou aqui')
-
-        await db.query('DELETE FROM "usersUrls" WHERE id_url = $1;', [id])
+        
         await db.query('DELETE FROM urls WHERE id = $1;', [id]);
         return res.sendStatus(204);
         

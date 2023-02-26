@@ -59,7 +59,8 @@ CREATE TABLE public.urls (
     id integer NOT NULL,
     url text NOT NULL,
     "shortUrl" text NOT NULL,
-    "visitCount" integer DEFAULT 0 NOT NULL
+    "visitCount" integer DEFAULT 0 NOT NULL,
+    id_user integer NOT NULL
 );
 
 
@@ -93,37 +94,6 @@ CREATE TABLE public.users (
     email text NOT NULL,
     password text NOT NULL
 );
-
-
---
--- Name: usersUrls; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public."usersUrls" (
-    id integer NOT NULL,
-    id_user integer NOT NULL,
-    id_url integer NOT NULL
-);
-
-
---
--- Name: usersUrls_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public."usersUrls_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: usersUrls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public."usersUrls_id_seq" OWNED BY public."usersUrls".id;
 
 
 --
@@ -168,38 +138,26 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- Name: usersUrls id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."usersUrls" ALTER COLUMN id SET DEFAULT nextval('public."usersUrls_id_seq"'::regclass);
-
-
---
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (1, 1, 'f94fa194-24fe-442c-9808-d39e5c1f5029');
+INSERT INTO public.sessions VALUES (1, 1, '098c4e9d-e574-4c49-b271-72dfe34dd8d7');
 
 
 --
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.urls VALUES (2, 'https://www.bt.com/content/dam/bt/portal/images/articles/tv/tv-sky-atlantic-now-tv-zerozerozero-instant-expert-dane-dehaan-rebrand-lockup.jpg', 'VunbPBAxB1euX_qgPsrq7', 0);
+INSERT INTO public.urls VALUES (4, 'https://www.bt.com/content/dam/bt/portal/images/articles/tv/tv-sky-atlantic-now-tv-zerozerozero-instant-expert-dane-dehaan-rebrand-lockup.jpg', 'UTox8QWoSFK4mBvTfu17u', 0, 1);
+INSERT INTO public.urls VALUES (5, 'https://www.etonline.com/sites/default/files/styles/max_970x546/public/images/2013-04/105_dane_640.jpg?itok=S8ZxqbfS', 'diYt3pGV2U6K4lhIvMwbm', 0, 1);
+INSERT INTO public.urls VALUES (6, 'https://media.gq.com/photos/5b489c379eea1c27bfdb9da8/1:1/w_2443,h_2443,c_limit/Bill%20Skarsgard-Cruel%20Summer-GQ-July-2018-01.jpg', 'kAOyCZmjmCBGfDeunTfVe', 0, 1);
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'Rubs', 'rubs@rubs.com', '$2b$10$awEwsmA5kpfY0Vxg/tWvxeTgDALeNfpUFI9qG5ZSu19Q9Cw0W0CG2');
-
-
---
--- Data for Name: usersUrls; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public."usersUrls" VALUES (2, 1, 2);
+INSERT INTO public.users VALUES (1, 'Rubs', 'rubs@rubs.com', '$2b$10$Trq7q.Xi4TkGr9azUMLxoexVh1c/wOeZWnD2VwkCY4jxAjUXtHyOO');
 
 
 --
@@ -213,14 +171,7 @@ SELECT pg_catalog.setval('public.sessions_id_seq', 1, true);
 -- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.urls_id_seq', 2, true);
-
-
---
--- Name: usersUrls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public."usersUrls_id_seq"', 2, true);
+SELECT pg_catalog.setval('public.urls_id_seq', 6, true);
 
 
 --
@@ -255,14 +206,6 @@ ALTER TABLE ONLY public.urls
 
 
 --
--- Name: usersUrls usersUrls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."usersUrls"
-    ADD CONSTRAINT "usersUrls_pkey" PRIMARY KEY (id);
-
-
---
 -- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -287,19 +230,11 @@ ALTER TABLE ONLY public.sessions
 
 
 --
--- Name: usersUrls usersUrls_id_url_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: urls urls_id_user_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."usersUrls"
-    ADD CONSTRAINT "usersUrls_id_url_fkey" FOREIGN KEY (id_url) REFERENCES public.urls(id);
-
-
---
--- Name: usersUrls usersUrls_id_user_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."usersUrls"
-    ADD CONSTRAINT "usersUrls_id_user_fkey" FOREIGN KEY (id_user) REFERENCES public.users(id);
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT urls_id_user_fkey FOREIGN KEY (id_user) REFERENCES public.users(id);
 
 
 --
