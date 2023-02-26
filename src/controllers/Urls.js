@@ -33,3 +33,18 @@ export async function getUrlById(req, res) {
         return res.status(500).send(error);
     }
 }
+export async function getUrlOpenShortUrl(req, res) {
+    const { shortUrl } = req.params; 
+    const { url } = res.locals;
+
+    try {
+
+        await db.query('UPDATE urls SET "visitCount" = $1 WHERE "shortUrl" = $2;', [url.visitCount + 1, shortUrl]);
+
+        res.redirect(200, url.url)
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
