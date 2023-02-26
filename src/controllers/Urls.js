@@ -42,7 +42,7 @@ export async function getUrlOpenShortUrl(req, res) {
 
         await db.query('UPDATE urls SET "visitCount" = $1 WHERE "shortUrl" = $2;', [url.visitCount + 1, shortUrl]);
 
-        return res.redirect(200, url.url)
+        return res.redirect(302, url.url)
         
     } catch (error) {
         console.log(error);
