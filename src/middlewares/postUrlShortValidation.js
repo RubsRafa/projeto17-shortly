@@ -14,6 +14,9 @@ export async function postUrlShortValidation(req, res, next) {
         const tokenExist = await db.query('SELECT * FROM sessions WHERE token = $1;', [token]);
         if (!tokenExist.rows[0]) return res.sendStatus(422);
 
+        const urlShortExist = await db.query('SELECT * FROM urls WHERE url = $1;', [url]);
+        if (urlShortExist.rows[0]) return res.sendStatus(409);
+
         next(); 
         
     } catch (error) {
