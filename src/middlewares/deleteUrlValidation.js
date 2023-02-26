@@ -15,11 +15,11 @@ export async function deleteUrlValidation(req, res, next) {
 
         const idUser = userExist.rows[0].id;
 
-        const urlFromUser = await db.query('SELECT * FROM "usersUrls" WHERE id_url = $1;', [id]);
+        const urlFromUser = await db.query('SELECT * FROM urls WHERE id = $1;', [id]);
         if (!urlFromUser.rows[0]) return res.sendStatus(404);
     
         if (urlFromUser.rows[0].id_user !== idUser) return res.sendStatus(401);
-
+        
         next(); 
         
     } catch (error) {
