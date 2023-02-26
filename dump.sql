@@ -96,6 +96,37 @@ CREATE TABLE public.users (
 
 
 --
+-- Name: usersUrls; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."usersUrls" (
+    id integer NOT NULL,
+    id_user integer NOT NULL,
+    id_url integer NOT NULL
+);
+
+
+--
+-- Name: usersUrls_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public."usersUrls_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: usersUrls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public."usersUrls_id_seq" OWNED BY public."usersUrls".id;
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -137,45 +168,62 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Name: usersUrls id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."usersUrls" ALTER COLUMN id SET DEFAULT nextval('public."usersUrls_id_seq"'::regclass);
+
+
+--
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (19, 1, 'eef5b900-08c8-4833-965c-994681bf67b8');
 
 
 --
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.urls VALUES (1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRPgutxlNjNHKdmX1KEqJ_zuG2XLM-J0wrYw&usqp=CAU', '2rmrWOFJS34KkWeALIoMs', 2);
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'Rubs', 'rubs@rubs.com', '$2b$10$z7zfibm3vWw0qwvdrIS0GuY3AiLPFto047ydxpEdCdzGmejD06q0G');
+
+
+--
+-- Data for Name: usersUrls; Type: TABLE DATA; Schema: public; Owner: -
+--
+
 
 
 --
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 19, true);
+SELECT pg_catalog.setval('public.sessions_id_seq', 1, false);
 
 
 --
 -- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.urls_id_seq', 1, true);
+SELECT pg_catalog.setval('public.urls_id_seq', 1, false);
+
+
+--
+-- Name: usersUrls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public."usersUrls_id_seq"', 1, false);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 1, false);
 
 
 --
@@ -203,6 +251,14 @@ ALTER TABLE ONLY public.urls
 
 
 --
+-- Name: usersUrls usersUrls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."usersUrls"
+    ADD CONSTRAINT "usersUrls_pkey" PRIMARY KEY (id);
+
+
+--
 -- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -224,6 +280,22 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.sessions
     ADD CONSTRAINT sessions_id_user_fkey FOREIGN KEY (id_user) REFERENCES public.users(id);
+
+
+--
+-- Name: usersUrls usersUrls_id_url_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."usersUrls"
+    ADD CONSTRAINT "usersUrls_id_url_fkey" FOREIGN KEY (id_url) REFERENCES public.urls(id);
+
+
+--
+-- Name: usersUrls usersUrls_id_user_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."usersUrls"
+    ADD CONSTRAINT "usersUrls_id_user_fkey" FOREIGN KEY (id_user) REFERENCES public.users(id);
 
 
 --

@@ -3,6 +3,7 @@ import { nanoid } from "nanoid";
 
 export async function postUrlsShorten(req, res) {
     const { url } = req.body;
+    const id_user = res.locals.id_user;
 
     try {
 
@@ -11,6 +12,8 @@ export async function postUrlsShorten(req, res) {
         await db.query('INSERT INTO urls (url, "shortUrl") VALUES ($1, $2);', [url, shortUrl]);
 
         const urlShorten = await db.query('SELECT * FROM urls WHERE url = $1;', [url]);
+
+        await db.query('INSERT INTO "usersUrls" (id_user, id_url) VALUES ($1, $2);', [id_user, urlShorten.rows[0].id]);
 
         return res.status(201).send({ id: urlShorten.rows[0].id, shortUrl: urlShorten.rows[0].shortUrl })
         

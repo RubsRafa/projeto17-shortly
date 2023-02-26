@@ -20,6 +20,8 @@ export async function postUrlShortValidation(req, res, next) {
         const urlShortExist = await db.query('SELECT * FROM urls WHERE url = $1;', [url]);
         if (urlShortExist.rows[0]) return res.sendStatus(409);
 
+        res.locals.id_user = tokenExist.rows[0].id_user;
+
         next(); 
         
     } catch (error) {
