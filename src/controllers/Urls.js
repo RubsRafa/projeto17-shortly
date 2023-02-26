@@ -48,3 +48,16 @@ export async function getUrlOpenShortUrl(req, res) {
         return res.status(500).send(error);
     }
 }
+export async function deleteUrl(req, res) {
+    const { id } = req.params;
+
+    try {
+
+        await db.query('DELETE FROM urls WHERE id = $1;', [id]);
+        return res.sendStatus(204);
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
