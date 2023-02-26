@@ -178,52 +178,56 @@ ALTER TABLE ONLY public."usersUrls" ALTER COLUMN id SET DEFAULT nextval('public.
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.sessions VALUES (1, 1, 'f94fa194-24fe-442c-9808-d39e5c1f5029');
 
 
 --
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.urls VALUES (2, 'https://www.bt.com/content/dam/bt/portal/images/articles/tv/tv-sky-atlantic-now-tv-zerozerozero-instant-expert-dane-dehaan-rebrand-lockup.jpg', 'VunbPBAxB1euX_qgPsrq7', 0);
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.users VALUES (1, 'Rubs', 'rubs@rubs.com', '$2b$10$awEwsmA5kpfY0Vxg/tWvxeTgDALeNfpUFI9qG5ZSu19Q9Cw0W0CG2');
 
 
 --
 -- Data for Name: usersUrls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public."usersUrls" VALUES (2, 1, 2);
 
 
 --
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 1, false);
+SELECT pg_catalog.setval('public.sessions_id_seq', 1, true);
 
 
 --
 -- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.urls_id_seq', 1, false);
+SELECT pg_catalog.setval('public.urls_id_seq', 2, true);
 
 
 --
 -- Name: usersUrls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."usersUrls_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."usersUrls_id_seq"', 2, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_id_seq', 1, true);
 
 
 --
