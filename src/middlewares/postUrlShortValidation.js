@@ -11,8 +11,11 @@ export async function postUrlShortValidation(req, res, next) {
         if (!token || token === "" || typeof(token) !== "string") return res.sendStatus(401);
         if (!url || url === "" || typeof(url) !== "string") return res.sendStatus(422);
 
+        const urlFormat = /^(https?|ftp):\/\/[^\s\/$.?#].[^\s]*$/i;
+        if (!urlFormat.test(url)) return res.sendStatus(422);
+
         const tokenExist = await db.query('SELECT * FROM sessions WHERE token = $1;', [token]);
-        if (!tokenExist.rows[0]) return res.sendStatus(422);
+        if (!tokenExist.rows[0]) return res.sendStatus(401);
 
         const urlShortExist = await db.query('SELECT * FROM urls WHERE url = $1;', [url]);
         if (urlShortExist.rows[0]) return res.sendStatus(409);

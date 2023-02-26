@@ -58,7 +58,8 @@ ALTER SEQUENCE public.sessions_id_seq OWNED BY public.sessions.id;
 CREATE TABLE public.urls (
     id integer NOT NULL,
     url text NOT NULL,
-    "shortUrl" text NOT NULL
+    "shortUrl" text NOT NULL,
+    "visitCount" integer DEFAULT 0 NOT NULL
 );
 
 
@@ -146,9 +147,7 @@ INSERT INTO public.sessions VALUES (19, 1, 'eef5b900-08c8-4833-965c-994681bf67b8
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.urls VALUES (1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRPgutxlNjNHKdmX1KEqJ_zuG2XLM-J0wrYw&usqp=CAU', '2t_1ez0Cy8heVE_VQtKIe');
-INSERT INTO public.urls VALUES (2, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRPgutxlNjNHKdmX1KEqJ_zuG2XLM-J0wrYw&usqp=CAU', 'khrBoz3aZnRdVhMd2JBbi');
-INSERT INTO public.urls VALUES (3, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRPgutxlNjNHKdmX1KEqJ_zuG2XLM-J0wrYw&usqp=CAU', 'njYCIsnIRyKEjQMO3evpd');
+INSERT INTO public.urls VALUES (1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRPgutxlNjNHKdmX1KEqJ_zuG2XLM-J0wrYw&usqp=CAU', '2rmrWOFJS34KkWeALIoMs', 2);
 
 
 --
@@ -169,7 +168,7 @@ SELECT pg_catalog.setval('public.sessions_id_seq', 19, true);
 -- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.urls_id_seq', 3, true);
+SELECT pg_catalog.setval('public.urls_id_seq', 1, true);
 
 
 --
