@@ -12,7 +12,7 @@ export async function postUrlsShorten(req, res) {
 
         const urlShorten = await db.query('SELECT * FROM urls WHERE url = $1;', [url]);
 
-        return res.status(201).send({ id: urlShorten.id, shortUrl: urlShorten.shortUrl })
+        return res.status(201).send({ id: urlShorten.rows[0].id, shortUrl: urlShorten.rows[0].shortUrl })
         
     } catch (error) {
         console.log(error);
